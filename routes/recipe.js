@@ -140,4 +140,15 @@ router.get("/search/:key", async (req, res) => {
   }
 });
 
+// ROUTE: 8; Get recipe by date using GET "/api/recipe/latest".
+router.get("/latest", async (req, res) => {
+  try {
+    const recipes = await Recipe.find(req.id).sort({_id: -1}).limit(8);
+    res.json(recipes);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 module.exports = router;
